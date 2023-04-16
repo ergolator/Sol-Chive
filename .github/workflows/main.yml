@@ -7,8 +7,8 @@ on:
     branches: [ main ]
 
 jobs:
-  install:
-    name: install
+  install-and-test:
+    name: install and test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -16,12 +16,8 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '16.x'
-          cache: npm
       - name: Install dependencies
         run: npm install
-  test:
-    runs-on: ubuntu-latest
-    steps:
       - uses: actions/checkout@v3    
       - name: Setup Node.js
         uses: actions/setup-node@v3
