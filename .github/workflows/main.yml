@@ -19,4 +19,4 @@ jobs:
       - name: Install dependencies
         run: npm install  
       - name: Build and test
-        run: npm run test-headless
+        run: npm run test
