@@ -1,0 +1,42 @@
+# karma.conf.yml
+
+# Base configuration
+basePath: ''
+frameworks:
+  - jasmine
+  - @angular-devkit/build-angular
+
+# Plugins
+plugins:
+  - karma-jasmine
+  - karma-chrome-launcher
+  - karma-jasmine-html-reporter
+  - karma-coverage-istanbul-reporter
+  - @angular-devkit/build-angular/plugins/karma
+
+# Test files
+files:
+  - src/**/*.spec.ts
+
+# Preprocessors
+preprocessors:
+  'src/**/*.spec.ts': ['@angular-devkit/build-angular']
+
+# Reporters
+reporters:
+  - progress
+  - jasmine-html
+  - coverage-istanbul
+
+# Browsers
+browsers:
+  - Chrome
+
+# Coverage reports
+coverageIstanbulReporter:
+  dir: coverage/
+  reports:
+    - html
+    - lcovonly
+    - text-summary
+  fixWebpackSourcePaths: true
