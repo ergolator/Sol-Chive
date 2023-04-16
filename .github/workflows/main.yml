@@ -1,42 +1,27 @@
-# karma.conf.yml
+name: Angular CI
 
-# Base configuration
-basePath: ''
-frameworks:
-  - jasmine
-  - @angular-devkit/build-angular
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
-# Plugins
-plugins:
-  - karma-jasmine
-  - karma-chrome-launcher
-  - karma-jasmine-html-reporter
-  - karma-coverage-istanbul-reporter
-  - @angular-devkit/build-angular/plugins/karma
+jobs:
+  build:
+    runs-on: ubuntu-latest
 
-# Test files
-files:
-  - src/**/*.spec.ts
+    steps:
+      - uses: actions/checkout@v2
 
-# Preprocessors
-preprocessors:
-  'src/**/*.spec.ts': ['@angular-devkit/build-angular']
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14.x'
 
-# Reporters
-reporters:
-  - progress
-  - jasmine-html
-  - coverage-istanbul
+      - name: Install dependencies
+        run: npm install
 
-# Browsers
-browsers:
-  - Chrome
-
-# Coverage reports
-coverageIstanbulReporter:
-  dir: coverage/
-  reports:
-    - html
-    - lcovonly
-    - text-summary
-  fixWebpackSourcePaths: true
+      - name: Build and test
+        run: |
+          npm run build
+          npm run test-headless
